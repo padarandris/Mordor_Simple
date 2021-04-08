@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Mordor Manager";
+}
+
+<div class="jumbotron">
+    <h1>Welcome to Mordor!</h1>
+    <p class="lead">Build and manage your orc hordes in an efficient way! Will you be the next Dark Lord or you will fail miserably like Saruman?</p>
+    
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <img src="~/Content/orc-head.svg" width="60" height="60" alt="Orc head logo" />
+        <h2>Manage your orcs</h2>
+        <p>
+            What are hordes without strong, capable orcs? Create and armor up your future soldiers here!
+        </p>
+        <p class="btn btn-default">@Html.ActionLink("Continue", "Index", "Orcs")</p>
+    </div>
+    <div class="col-md-4">
+        <img src="~/Content/crest.png" width="60" height="60" alt="Sword logo" />
+        <h2>Check your hordes</h2>
+        <p>Create new hordes or strengthen the already existing ones - it's your call!</p>
+        <p class="btn btn-default">@Html.ActionLink("Continue", "Index", "Hordes")</p>
+    </div>
+    <div class="col-md-4">
+        <img src="~/Content/sword.svg" width="60" height="60" alt="Sword logo" />
+        <h2>Weaponry</h2>
+        <p>Choose from our handpick weapons or forge entirely new ones!</p>
+        <p class="btn btn-default" @Html.ActionLink("Continue", "Index", "Weapons")></p>
+    </div>
+</div>

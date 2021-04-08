@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Mordor_Simple.Models.Orc>
+
+@{
+    ViewBag.Title = "Orcs";
+}
+
+<h2>Orc list</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            Kill Count
+        </th>
+        <th>
+            Horde
+        </th>
+        <th>
+           Race
+        </th>
+        <th>
+            Weapon
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KillCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Horde.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Race.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Weapon.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.OrcId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.OrcId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.OrcId })
+        </td>
+    </tr>
+}
+
+</table>

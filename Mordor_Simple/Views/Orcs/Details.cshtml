@@ -1,0 +1,50 @@
+﻿@model Mordor_Simple.Models.Orc
+
+@{
+    ViewBag.Title = "Orc details";
+}
+
+<h2>Orc details</h2>
+
+<div>
+    <h4>@Html.DisplayFor(model => model.Name)</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Kill count
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KillCount)
+        </dd>
+
+        <dt>
+            Horde name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Horde.Name)
+        </dd>
+
+        <dt>
+            Race
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Race.Name)
+        </dd>
+
+        <dt>
+            Weapon of choice
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Weapon.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.OrcId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

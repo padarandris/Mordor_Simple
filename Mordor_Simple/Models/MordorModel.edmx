@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MordorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Horde">
+          <Key>
+            <PropertyRef Name="HordeId" />
+          </Key>
+          <Property Name="HordeId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orc">
+          <Key>
+            <PropertyRef Name="OrcId" />
+          </Key>
+          <Property Name="OrcId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="KillCount" Type="bigint" />
+          <Property Name="RaceId" Type="bigint" Nullable="false" />
+          <Property Name="WeaponId" Type="bigint" />
+          <Property Name="HordeId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Race">
+          <Key>
+            <PropertyRef Name="RaceId" />
+          </Key>
+          <Property Name="RaceId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Weapon">
+          <Key>
+            <PropertyRef Name="WeaponId" />
+          </Key>
+          <Property Name="WeaponId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Orc_Horde">
+          <End Role="Horde" Type="Self.Horde" Multiplicity="1" />
+          <End Role="Orc" Type="Self.Orc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Horde">
+              <PropertyRef Name="HordeId" />
+            </Principal>
+            <Dependent Role="Orc">
+              <PropertyRef Name="HordeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orc_Race">
+          <End Role="Race" Type="Self.Race" Multiplicity="1" />
+          <End Role="Orc" Type="Self.Orc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Race">
+              <PropertyRef Name="RaceId" />
+            </Principal>
+            <Dependent Role="Orc">
+              <PropertyRef Name="RaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orc_Weapon">
+          <End Role="Weapon" Type="Self.Weapon" Multiplicity="0..1" />
+          <End Role="Orc" Type="Self.Orc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Weapon">
+              <PropertyRef Name="WeaponId" />
+            </Principal>
+            <Dependent Role="Orc">
+              <PropertyRef Name="WeaponId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MordorModelStoreContainer">
+          <EntitySet Name="Horde" EntityType="Self.Horde" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orc" EntityType="Self.Orc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Race" EntityType="Self.Race" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Weapon" EntityType="Self.Weapon" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Orc_Horde" Association="Self.FK_Orc_Horde">
+            <End Role="Horde" EntitySet="Horde" />
+            <End Role="Orc" EntitySet="Orc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orc_Race" Association="Self.FK_Orc_Race">
+            <End Role="Race" EntitySet="Race" />
+            <End Role="Orc" EntitySet="Orc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orc_Weapon" Association="Self.FK_Orc_Weapon">
+            <End Role="Weapon" EntitySet="Weapon" />
+            <End Role="Orc" EntitySet="Orc" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MordorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Horde">
+          <Key>
+            <PropertyRef Name="HordeId" />
+          </Key>
+          <Property Name="HordeId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Orcs" Relationship="Self.FK_Orc_Horde" FromRole="Horde" ToRole="Orc" />
+        </EntityType>
+        <EntityType Name="Orc">
+          <Key>
+            <PropertyRef Name="OrcId" />
+          </Key>
+          <Property Name="OrcId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="KillCount" Type="Int64" />
+          <Property Name="RaceId" Type="Int64" Nullable="false" />
+          <Property Name="WeaponId" Type="Int64" />
+          <Property Name="HordeId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Horde" Relationship="Self.FK_Orc_Horde" FromRole="Orc" ToRole="Horde" />
+          <NavigationProperty Name="Race" Relationship="Self.FK_Orc_Race" FromRole="Orc" ToRole="Race" />
+          <NavigationProperty Name="Weapon" Relationship="Self.FK_Orc_Weapon" FromRole="Orc" ToRole="Weapon" />
+        </EntityType>
+        <EntityType Name="Race">
+          <Key>
+            <PropertyRef Name="RaceId" />
+          </Key>
+          <Property Name="RaceId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Orcs" Relationship="Self.FK_Orc_Race" FromRole="Race" ToRole="Orc" />
+        </EntityType>
+        <EntityType Name="Weapon">
+          <Key>
+            <PropertyRef Name="WeaponId" />
+          </Key>
+          <Property Name="WeaponId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Orcs" Relationship="Self.FK_Orc_Weapon" FromRole="Weapon" ToRole="Orc" />
+        </EntityType>
+        <Association Name="FK_Orc_Horde">
+          <End Role="Horde" Type="Self.Horde" Multiplicity="1" />
+          <End Role="Orc" Type="Self.Orc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Horde">
+              <PropertyRef Name="HordeId" />
+            </Principal>
+            <Dependent Role="Orc">
+              <PropertyRef Name="HordeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orc_Race">
+          <End Role="Race" Type="Self.Race" Multiplicity="1" />
+          <End Role="Orc" Type="Self.Orc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Race">
+              <PropertyRef Name="RaceId" />
+            </Principal>
+            <Dependent Role="Orc">
+              <PropertyRef Name="RaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orc_Weapon">
+          <End Role="Weapon" Type="Self.Weapon" Multiplicity="0..1" />
+          <End Role="Orc" Type="Self.Orc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Weapon">
+              <PropertyRef Name="WeaponId" />
+            </Principal>
+            <Dependent Role="Orc">
+              <PropertyRef Name="WeaponId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MordorEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Hordes" EntityType="Self.Horde" />
+          <EntitySet Name="Orcs" EntityType="Self.Orc" />
+          <EntitySet Name="Races" EntityType="Self.Race" />
+          <EntitySet Name="Weapons" EntityType="Self.Weapon" />
+          <AssociationSet Name="FK_Orc_Horde" Association="Self.FK_Orc_Horde">
+            <End Role="Horde" EntitySet="Hordes" />
+            <End Role="Orc" EntitySet="Orcs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orc_Race" Association="Self.FK_Orc_Race">
+            <End Role="Race" EntitySet="Races" />
+            <End Role="Orc" EntitySet="Orcs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orc_Weapon" Association="Self.FK_Orc_Weapon">
+            <End Role="Weapon" EntitySet="Weapons" />
+            <End Role="Orc" EntitySet="Orcs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MordorModelStoreContainer" CdmEntityContainer="MordorEntities">
+          <EntitySetMapping Name="Hordes">
+            <EntityTypeMapping TypeName="MordorModel.Horde">
+              <MappingFragment StoreEntitySet="Horde">
+                <ScalarProperty Name="HordeId" ColumnName="HordeId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orcs">
+            <EntityTypeMapping TypeName="MordorModel.Orc">
+              <MappingFragment StoreEntitySet="Orc">
+                <ScalarProperty Name="OrcId" ColumnName="OrcId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="KillCount" ColumnName="KillCount" />
+                <ScalarProperty Name="RaceId" ColumnName="RaceId" />
+                <ScalarProperty Name="WeaponId" ColumnName="WeaponId" />
+                <ScalarProperty Name="HordeId" ColumnName="HordeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Races">
+            <EntityTypeMapping TypeName="MordorModel.Race">
+              <MappingFragment StoreEntitySet="Race">
+                <ScalarProperty Name="RaceId" ColumnName="RaceId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Weapons">
+            <EntityTypeMapping TypeName="MordorModel.Weapon">
+              <MappingFragment StoreEntitySet="Weapon">
+                <ScalarProperty Name="WeaponId" ColumnName="WeaponId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
